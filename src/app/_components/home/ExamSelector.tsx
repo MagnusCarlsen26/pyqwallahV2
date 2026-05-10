@@ -10,8 +10,8 @@ export default function ExamSelector() {
   const [selected, setSelected] = useState<null | ExamChoice["id"]>(null)
 
   return (
-    <div className="flex flex-col items-center gap-24">
-        <section className="flex flex-col lg:flex-row gap-4">
+    <div className="flex flex-col items-center gap-16">
+        <section className="flex flex-col gap-4 lg:flex-row">
           {EXAM_CHOICES.map((exam) => 
             <ExamCard
               key={exam.id}
@@ -20,7 +20,7 @@ export default function ExamSelector() {
               onClick={() => setSelected( prev => prev === exam.id? null : exam.id )}
           />)}
         </section>
-        <section className="flex gap-2">
+        <section className="flex flex-wrap justify-center gap-2">
           {
             selected && 
             EXAM_CHOICES.filter( exam => exam.id === selected ).map( exam => (

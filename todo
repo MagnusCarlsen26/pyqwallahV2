@@ -18,7 +18,9 @@
 - [] Complete landing page
     - [] How will the choices be shown?
     - [] Animations should be smooth when adding new elements.
-    - [] Some animated background?
+    - [x] Animated background?
+        - [ ] Show loading spinner while 
+        - [ ] Decrease the bundle size. Its 9MB of data loading in landing page.
     - [] Special Cursor
 
 ## Actively Thought Technical Debt

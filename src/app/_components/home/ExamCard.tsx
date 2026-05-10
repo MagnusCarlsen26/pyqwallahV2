@@ -22,11 +22,13 @@ export default function ExamCard({
         aria-pressed={isSelected}
         // TODO: Should I use cvlx?
         // TODO: Should I have seperate variables for hover and non-hover state?
-        className={`group ${isSelected ? 'border-glow' : 'border-subtle hover:border-glow'} border-2 rounded-2xl p-20 transition-all duration-300`}
+        className={`group flex min-w-40 flex-col items-center justify-center gap-3 rounded-3xl border px-8 py-10 transition-all duration-300 backdrop-blur-xl sm:px-10 sm:py-12 ${isSelected ? "border-glow bg-white/10 shadow-[0_0_0_1px_rgba(57,255,20,0.12),0_0_30px_rgba(57,255,20,0.18)]" : "border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] hover:-translate-y-1"}`}
         onClick={onClick}
       >
-        <p className="text-ink font-bold text-2xl">{exam.displayName}</p>
-        <p className={`flex justify-center items-center ${isSelected ? 'opacity-100 rotate-180' : 'opacity-0 rotate-0'}  group-hover:opacity-100 transition-all duration-300`}><FaChevronDown className="text-amber-50"/></p>
+        <p className="font-display text-2xl font-bold tracking-[0.18em] text-white sm:text-3xl">{exam.displayName}</p>
+        <p className={`flex items-center justify-center transition-all duration-300 ${isSelected ? "rotate-180 opacity-100" : "rotate-0 opacity-0 group-hover:opacity-100"}`}>
+          <FaChevronDown className="text-lime-200" />
+        </p>
       </button>
   )
 }
