@@ -32,7 +32,7 @@ export default function ExamSelector() {
                   // TODO: Need multiple selection trackers
                   isSelected={false}
                   // TODO: Need onclick
-                  onClick={() => {}} 
+                  onClick={() => {console.log("hi")}} 
                 />
               ))
               : <ComingSoon key={exam.id}/>
