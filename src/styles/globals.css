@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
+:root {
+  --bg-color: #0e172a;
+  --ink: #f1f5f9;
+  --color-subtle: #1e293b;
+  --color-glow: #38bdf8
+}
+
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-background: var(--bg-color);
+  --color-ink: var(--ink);
+  --color-subtle: var(--color-subtle);
+  --color-glow: var(--color-glow)
 }
