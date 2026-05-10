@@ -3,3 +3,16 @@
 - [] Offline Version
 - [] Vercel Web Analytics VS posthog
 - [] responsive
+- [] Dark/Light Theme
+## Doubts
+
+- [x] What is the actual purpose of "use client" and "use server"
+- [ ] Why printing the page is in light theme?
+- [ ] Use Maps instead of Objects for constants?
+- [ ] No scroll in home page
+
+## Immediate next tasks
+
+- [] Complete landing page
+    - [] How will the choices be shown?
+    - [] Animations should be smooth when adding new elements.
