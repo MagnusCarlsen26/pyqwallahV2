@@ -14,36 +14,32 @@ export default function VantaBackground() {
         return;
       }
 
-      const [{ default: VANTA_NET }, threeModule] = await Promise.all([
-        import("vanta/dist/vanta.net.min"),
-        import("three"),
-      ]);
-
+      const { default: VANTA_NET } = await import("~/lib/vanta-net");
+      const threeModule = await import("three");
       const THREE = "default" in threeModule ? threeModule.default : threeModule;
 
       if (cancelled || !containerRef.current) {
         return;
       }
 
-      (globalThis as { THREE?: Record<string, unknown> }).THREE = THREE;
-
       effectRef.current = VANTA_NET({
         el: containerRef.current,
         THREE,
         backgroundAlpha: 1,
-        backgroundColor: 2299196,
+        backgroundColor: "#0e172a",
         color: 982784,
+        dotSize: 0.40,
         gyroControls: false,
-        maxDistance: 22,
+        maxDistance: 16,
         minHeight: 200,
         minWidth: 200,
-        mouseControls: true,
-        points: 20,
+        mouseControls: false,
+        points: 40,
         scale: 1,
         scaleMobile: 1,
         showDots: true,
         spacing: 20,
-        touchControls: true,
+        touchControls: false,
       });
     };
 
