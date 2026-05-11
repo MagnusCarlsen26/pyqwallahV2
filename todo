@@ -16,12 +16,14 @@
 ## Immediate next tasks
 
 - [] Complete landing page
-    - [] How will the choices be shown?
-    - [] Animations should be smooth when adding new elements.
+    - [x] How will the choices be shown?
+    - [x] Animations should be smooth when adding new elements.
     - [x] Animated background?
         - [ ] Show loading spinner while 
         - [ ] Decrease the bundle size. Its 9MB of data loading in landing page.
     - [] Special Cursor
+    - [] Progress bar when answering questions
+    - [] back/previous button
 
 ## Actively Thought Technical Debt
 
