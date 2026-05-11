@@ -37,6 +37,7 @@ export default function ExamSelector() {
                 key={exam.id}
                 exam={exam}
                 isSelected={false}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function -- intentional no-op
                 onMouseDown={() => {}}
               />
             ))}
@@ -51,6 +52,7 @@ export default function ExamSelector() {
                     key={choice.id}
                     exam={choice}
                     isSelected={false}
+                    // eslint-disable-next-line @typescript-eslint/no-empty-function -- intentional no-op
                     onMouseDown={() => {}}
                   />
                 )
@@ -167,11 +169,6 @@ function ComingSoon() {
     </div>
   )
 }
-
-const layoutTransition = {
-  duration: 1,
-  ease: [0.22, 1, 0.36, 1],
-} as const
 
 const screenVariants = {
   initial: {
