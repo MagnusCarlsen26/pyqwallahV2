@@ -51,9 +51,9 @@ export default function ExamSelector() {
 
       <br></br>
 
-      {currChoice.id != "TOP" && <button
+      <button
         type="button"
-        className={`cursor-pointer rounded-3xl border px-2 py-2 transition-all duration-300 backdrop-blur-xl sm:px-4 sm:py-2 border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] active:scale-90 active:bg-white/15 active:shadow-none`}
+        className={`${currChoice.id === "TOP" ? "invisible" : ""} cursor-pointer rounded-3xl border px-2 py-2 transition-all duration-300 0.25ackdrop-blur-xl sm:px-4 sm:py-2 border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] active:scale-90 active:bg-white/15 active:shadow-none`}
         onMouseDown={() => {
           const lastChoice = choiceHistory[choiceHistory.length - 2]
           if (lastChoice) {
@@ -65,7 +65,7 @@ export default function ExamSelector() {
         }}
       >
         <MdArrowBack />
-      </button>}
+      </button>
     </section>
   )
 }
@@ -124,27 +124,31 @@ const screenVariants = {
     initial: {
       opacity: 0,
       x: 140,
+      pointerEvents: "none"
     },
     animate: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 1,
+        duration: 0.25,
         ease: [0.22, 1, 0.36, 1],
         staggerChildren: 0.04,
         delayChildren: 0.02,
       },
+      transitionEnd: {
+        pointerEvents: "auto",
+      },
     },
-
     exit: {
       opacity: 0,
       x: -140,
       transition: {
-        duration: 1,
+        duration: 0.25,
         ease: [0.22, 1, 0.36, 1],
       },
+      pointerEvents: "none"
     },
-  },
+},
   initial: "initial",
   animate: "animate",
   exit: "exit"

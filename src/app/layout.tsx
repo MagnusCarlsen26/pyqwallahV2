@@ -1,8 +1,8 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
 import { Geist } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -23,16 +23,16 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-space-grotesk",
 });
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${inter.variable} ${sora.variable}`}>
+    <html lang="en" className={`${geist.variable} ${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="m-0 bg-background text-ink antialiased font-sans">
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>

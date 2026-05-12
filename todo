@@ -8,10 +8,8 @@
 
 ## Doubts
 
-- [x] What is the actual purpose of "use client" and "use server"
-- [ ] Why printing the page is in light theme?
+- [] What is the actual purpose of "use client" and "use server"
 - [ ] Use Maps instead of Objects for constants?
-- [ ] No scroll in home page
 
 ## Immediate next tasks
 
@@ -24,7 +22,7 @@
         - [-] Decrease the bundle size. Its 9MB of data loading in landing page.
         - [-] Not visible in tablet sizes. Incorrect config for mobile
     - [-] Special Cursor
-    - [] Progress bar when answering questions
+    - [-] Progress bar when answering questions
     - [X] back/previous button
 
 ## Actively Thought Technical Debt
