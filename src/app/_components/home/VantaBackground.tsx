@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export default function VantaBackground() {
+export default function VantaBackground({ onReady }: { onReady: () => void }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const effectRef = useRef<{ destroy?: () => void } | null>(null);
 
@@ -41,6 +41,7 @@ export default function VantaBackground() {
         spacing: 20,
         touchControls: false,
       });
+    onReady()
     };
 
     void init();
