@@ -53,7 +53,7 @@ export default function ExamSelector() {
 
       <button
         type="button"
-        className={`${currChoice.id === "TOP" ? "invisible" : ""} cursor-pointer rounded-3xl border px-2 py-2 transition-all duration-300 0.25ackdrop-blur-xl sm:px-4 sm:py-2 border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] active:scale-90 active:bg-white/15 active:shadow-none`}
+        className={`${currChoice.id === "TOP" ? "invisible" : ""} cursor-pointer rounded-3xl border px-2 py-2 transition-all duration-300 0.25 backdrop-blur-xl sm:px-4 sm:py-2 border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] active:scale-90 active:bg-white/15 active:shadow-none`}
         onMouseDown={() => {
           const lastChoice = choiceHistory[choiceHistory.length - 2]
           if (lastChoice) {
