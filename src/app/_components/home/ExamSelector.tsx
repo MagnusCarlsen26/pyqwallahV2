@@ -16,11 +16,8 @@ export default function ExamSelector() {
 
   const [currChoice, setCurrChoice] = useState<QuestionNode>(EXAM_CHOICES)
 
-  // TODO: Potential of overflowing memory.
   const [choiceHistory, setChoiceHistory] = 
     useState<ExamChoiceTree[]>([ EXAM_CHOICES ])
-
-  console.log(choiceHistory.length)
 
   return (
     <section className="relative w-full">
@@ -53,7 +50,6 @@ export default function ExamSelector() {
       </AnimatePresence>
 
       <br></br>
-      {/* TODO: OnPress contract a little bit using framer motion */}
 
       {currChoice.id != "TOP" && <button
         type="button"
@@ -94,11 +90,9 @@ function ExamSelectorMainContent({
       <div
         className="flex flex-col w-full items-center justify-center gap-4 lg:flex-row"
       >
-        {currChoice.choices.map((choice, index) => (
-          <motion.div
+        {currChoice.choices.map((choice) => (
+          <div
             key={choice.id}
-            custom={index}
-            variants={cardVariants}
           >
             <ExamCard
               displayName={choice.displayName}
@@ -118,7 +112,7 @@ function ExamSelectorMainContent({
                 )
               }}
             />
-          </motion.div>
+          </div>
         ))}
       </div>
     </>
@@ -154,31 +148,4 @@ const screenVariants = {
   initial: "initial",
   animate: "animate",
   exit: "exit"
-} as const
-
-const cardVariants = {
-  initial: {
-    opacity: 0,
-    x: 24,
-    scale: 0.96,
-  },
-
-  animate: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-
-  exit: {
-    opacity: 0,
-    x: -24,
-    scale: 0.96,
-    transition: {
-      duration: 1,
-    },
-  },
 } as const
