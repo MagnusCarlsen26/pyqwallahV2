@@ -1,110 +1,159 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { useState, type Dispatch, type SetStateAction } from "react"
+import { useRouter } from "next/navigation"
+import { MdArrowBack } from "react-icons/md";
 
 import ExamCard from "./ExamCard"
 
 import { EXAM_CHOICES } from "../../constants/businessConfig"
-
 import type { ExamChoiceTree, QuestionNode } from "~/app/constants/types"
-import { useRouter } from "next/navigation"
+
+const MAX_HISTORY_LENGTH = 20
+
 export default function ExamSelector() {
 
-  const [selectedPath, setSelectedPath] = useState<ExamChoiceTree["id"][]>([])
   const [currChoice, setCurrChoice] = useState<QuestionNode>(EXAM_CHOICES)
 
-  const router = useRouter()
+  // TODO: Potential of overflowing memory.
+  const [choiceHistory, setChoiceHistory] = 
+    useState<ExamChoiceTree[]>([ EXAM_CHOICES ])
+
+  console.log(choiceHistory.length)
 
   return (
     <section className="relative w-full">
 
-      {/* TODO: Optimize this */}
       {/* HEIGHT PRESERVER */}
       {/* Keeps parent height stable while screens are absolute */}
       <div className="invisible pointer-events-none">
-        {/* TODO: kind = final? need onMouseDown function to redirect */}
-        {/* <p>{currChoice.questionText}</p> */}
-        <div className="flex w-full flex-col items-center justify-center gap-4 lg:flex-row">
-          {currChoice.choices.map((choice) => (
-            <ExamCard
-              key={choice.id}
-              displayName={choice.displayName}
-              isSelected={false}
-              // eslint-disable-next-line @typescript-eslint/no-empty-function -- intentional no-op
-              onMouseDown={() => { }}
-            />
-          ))}
-        </div>
-
+        <ExamSelectorMainContent
+          currChoice={currChoice}
+          setCurrChoice={setCurrChoice}
+          setChoiceHistory={setChoiceHistory}
+        />
       </div>
 
       <AnimatePresence
         mode="sync"
         initial={false}
       >
-        <motion.p
-          key={currChoice.id}
-          variants={screenVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >{currChoice.questionText}</motion.p>
         <motion.div
           key={currChoice.id}
-          variants={screenVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="absolute inset-0 flex w-full flex-col items-center justify-center gap-4 lg:flex-row"
+          {...screenVariants}
+          className="absolute inset-0 w-full"
         >
-          {currChoice.choices.map((choice, index) => (
-            <motion.div
-              key={choice.id}
-              custom={index}
-              variants={cardVariants}
-            >
-              <ExamCard
-                displayName={choice.displayName}
-                isSelected={false}
-                onMouseDown={() => {
-                  if (choice.kind != "Question") return router.push(choice.link)
-                  setCurrChoice(choice)
-                }}
-              />
-            </motion.div>
-          ))}
+          <ExamSelectorMainContent
+            currChoice={currChoice}
+            setCurrChoice={setCurrChoice}
+            setChoiceHistory={setChoiceHistory}
+          />
         </motion.div>
       </AnimatePresence>
+
+      <br></br>
+      {/* TODO: OnPress contract a little bit using framer motion */}
+
+      {currChoice.id != "TOP" && <button
+        type="button"
+        className={`cursor-pointer rounded-3xl border px-2 py-2 transition-all duration-300 backdrop-blur-xl sm:px-4 sm:py-2 border-white/10 bg-white/5 hover:border-glow hover:bg-white/10 hover:shadow-[0_0_30px_rgba(57,255,20,0.12)] active:scale-90 active:bg-white/15 active:shadow-none`}
+        onMouseDown={() => {
+          const lastChoice = choiceHistory[choiceHistory.length - 2]
+          if (lastChoice) {
+            setCurrChoice(lastChoice as QuestionNode)
+            setChoiceHistory( prev => prev.slice(0,-1))
+          } else {
+            alert("ERROR")
+          }
+        }}
+      >
+        <MdArrowBack />
+      </button>}
     </section>
   )
 }
 
+type ExamSelectorMainContentProps = {
+  currChoice: QuestionNode,
+  setCurrChoice: Dispatch<SetStateAction<QuestionNode>>,
+  setChoiceHistory: Dispatch<SetStateAction<ExamChoiceTree[]>>
+}
+function ExamSelectorMainContent({
+  currChoice,
+  setCurrChoice,
+  setChoiceHistory
+}: ExamSelectorMainContentProps) {
+
+  const router = useRouter()
+
+  return (
+    <>
+      <p>{currChoice.questionText}</p>
+      <br></br>
+      <div
+        className="flex flex-col w-full items-center justify-center gap-4 lg:flex-row"
+      >
+        {currChoice.choices.map((choice, index) => (
+          <motion.div
+            key={choice.id}
+            custom={index}
+            variants={cardVariants}
+          >
+            <ExamCard
+              displayName={choice.displayName}
+              isSelected={false}
+              onMouseDown={() => {
+                if (choice.kind != "Question") {
+                  return router.push(choice.link)
+                }
+                setCurrChoice(choice)
+                setChoiceHistory( 
+                  prev => {
+                    // Slice to prevent memory overflow
+                    const history = prev.slice(-(MAX_HISTORY_LENGTH - 1))
+                    history.push(choice)
+                    return history
+                  }
+                )
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </>
+  )
+}
+
 const screenVariants = {
-  initial: {
-    opacity: 0,
-    x: 140,
-  },
+  variants: {
+    initial: {
+      opacity: 0,
+      x: 140,
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.04,
+        delayChildren: 0.02,
+      },
+    },
 
-  animate: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-      staggerChildren: 0.04,
-      delayChildren: 0.02,
+    exit: {
+      opacity: 0,
+      x: -140,
+      transition: {
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+      },
     },
   },
-
-  exit: {
-    opacity: 0,
-    x: -140,
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
+  initial: "initial",
+  animate: "animate",
+  exit: "exit"
 } as const
 
 const cardVariants = {

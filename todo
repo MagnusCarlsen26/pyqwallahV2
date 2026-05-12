@@ -21,11 +21,11 @@
     - [x] Animated background?
         - [x] Background and content should be shown together. no delay b/w them.
         - [x] Show loading spinner while
-        - [ ] Decrease the bundle size. Its 9MB of data loading in landing page.
-        - [ ] Not visible in tablet sizes. Incorrect config for mobile
-    - [] Special Cursor
+        - [-] Decrease the bundle size. Its 9MB of data loading in landing page.
+        - [-] Not visible in tablet sizes. Incorrect config for mobile
+    - [-] Special Cursor
     - [] Progress bar when answering questions
-    - [] back/previous button
+    - [X] back/previous button
 
 ## Actively Thought Technical Debt
 
